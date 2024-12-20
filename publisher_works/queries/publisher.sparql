@@ -1,0 +1,35 @@
+PREFIX fx: <http://sparql.xyz/facade-x/ns/>
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX urb: <https://purl.archive.org/domain/urbooks#>
+PREFIX schema: <http://schema.org/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX prov: <http://www.w3.org/ns/prov#>
+PREFIX urw: <https://purl.archive.org/domain/urwriters#>
+
+CONSTRUCT {
+  ?publisher a urb:Publisher ;
+             urb:published ?edition .
+  ?edition a urb:Edition ;
+           rdfs:label ?editionLabel .
+  ?publication a urb:Publication ;
+               urb:hasParticipant ?publisher, ?edition, ?datePublishedIRI ;
+               prov:wasDerivedFrom ?sourceURI .
+  ?sourceURI schema:url ?sourceLink .
+} WHERE {
+  SERVICE <x-sparql-anything:csv.headers=true,location=../data/processed.csv> {
+    []  xyz:id ?id ;
+        xyz:Publisher ?publisherName ;
+        xyz:Edizione ?editionName ;
+        xyz:Data ?datePublished ;
+        xyz:Fonte ?source ;
+        xyz:LinkFonte ?sourceLink .
+  }
+
+  BIND (IRI(CONCAT(STR(urb:), REPLACE(?publisherName, " ", "-"))) AS ?publisher) .
+  BIND (IRI(CONCAT(STR(urb:), REPLACE(?editionName, " ", "-"))) AS ?edition) .
+  BIND (IRI(CONCAT(STR(urb:), "publication", ?id )) AS ?publication) .
+  BIND (IRI(CONCAT(STR(urb:), REPLACE(?source, " ", "-"))) AS ?sourceURI) .
+  BIND (IRI(CONCAT(STR(urw:), ?datePublished)) AS ?datePublishedIRI) .
+  BIND (?editionName AS ?editionLabel) .
+}
