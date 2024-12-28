@@ -7,14 +7,24 @@
 @prefix urw:    <https://purl.archive.org/domain/urwriters#> .
 @prefix xyz:    <http://sparql.xyz/facade-x/data/> .
 
-urb:orbit  rdf:type    urb:Publisher ;
-        urb:published  urb:jade-city .
-
-urb:goodreads  schema:url  "https://www.goodreads.com/book/show/43587154-jade-city?ref=rae_2" .
-
 urb:publication1  rdf:type   urb:Publication ;
         prov:wasDerivedFrom  urb:goodreads ;
-        urb:hasParticipant   urw:2018 , urb:jade-city , urb:orbit .
+        urb:hasParticipant   urw:2018 , urb:Jade-City , urb:Orbit .
 
-urb:jade-city  rdf:type  urb:Edition ;
-        rdfs:label  "jade-city" .
+urb:Feltrinelli  rdf:type  urb:Publisher ;
+        urb:published  urb:Il-Profeta .
+
+urb:Jade-City  rdf:type  urb:Edition ;
+        rdfs:label  "Jade City" .
+
+urb:publication2  rdf:type   urb:Publication ;
+        prov:wasDerivedFrom  urb:goodreads ;
+        urb:hasParticipant   urw:1991 , urb:Il-Profeta , urb:Feltrinelli .
+
+urb:goodreads  schema:url  "https://www.goodreads.com/book/show/8013567-il-profeta" , "https://www.goodreads.com/book/show/43587154-jade-city?ref=rae_2" .
+
+urb:Orbit  rdf:type    urb:Publisher ;
+        urb:published  urb:Jade-City .
+
+urb:Il-Profeta  rdf:type  urb:Edition ;
+        rdfs:label  "Il Profeta" .
