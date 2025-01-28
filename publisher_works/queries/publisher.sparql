@@ -7,29 +7,34 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX prov: <http://www.w3.org/ns/prov#>
 PREFIX urw: <https://purl.archive.org/domain/urwriters#>
 
+### SLUG RULES
+### " " -> "-"
+### "." -> "-"
+### ":" -> "-"
+
 CONSTRUCT {
   ?publisher a urb:Publisher ;
              urb:published ?edition .
   ?edition a urb:Edition ;
            rdfs:label ?editionLabel .
   ?publication a urb:Publication ;
-               urb:hasParticipant ?publisher, ?edition, ?datePublishedIRI ;
-               prov:wasDerivedFrom ?sourceURI .
-  ?sourceURI schema:url ?sourceLink .
+               urb:hasParticipant ?publisher, ?edition, ?datePublished ;
+               prov:wasDerivedFrom ?source .
+  ?source schema:url ?sourceLinkCSV .
 } WHERE {
   SERVICE <x-sparql-anything:csv.headers=true,location=../data/processed.csv> {
     []  xyz:id ?id ;
-        xyz:Publisher ?publisherName ;
-        xyz:Edizione ?editionName ;
-        xyz:Data ?datePublished ;
-        xyz:Fonte ?source ;
-        xyz:LinkFonte ?sourceLink .
+        xyz:Publisher ?publisherCSV ;
+        xyz:Edizione ?editionCSV ;
+        xyz:Data ?datePublishedCSV ;
+        xyz:Fonte ?sourceCSV ;
+        xyz:LinkFonte ?sourceLinkCSV .
   }
 
-  BIND (IRI(CONCAT(STR(urb:), REPLACE(?publisherName, " ", "-"))) AS ?publisher) .
-  BIND (IRI(CONCAT(STR(urb:), REPLACE(?editionName, " ", "-"))) AS ?edition) .
+  BIND (IRI(CONCAT(STR(urb:), REPLACE(LCASE(?publisherCSV), "[ .:]", "-"))) AS ?publisher) .
+  BIND (IRI(CONCAT(STR(urb:), REPLACE(LCASE(?editionCSV), "[ .:]", "-"))) AS ?edition) .
   BIND (IRI(CONCAT(STR(urb:), "publication", ?id )) AS ?publication) .
-  BIND (IRI(CONCAT(STR(urb:), REPLACE(?source, " ", "-"))) AS ?sourceURI) .
-  BIND (IRI(CONCAT(STR(urw:), ?datePublished)) AS ?datePublishedIRI) .
-  BIND (?editionName AS ?editionLabel) .
+  BIND (IRI(CONCAT(STR(urb:), REPLACE(LCASE(?sourceCSV), "[ .:]", "-"))) AS ?source) .
+  BIND (IRI(CONCAT(STR(urw:), ?datePublishedCSV)) AS ?datePublished) .
+  BIND (?editionCSV AS ?editionLabel) .
 }

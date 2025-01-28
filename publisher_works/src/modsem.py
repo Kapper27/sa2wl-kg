@@ -13,7 +13,7 @@ def preprocess_csv(input_csv, output_csv):
 
 
 def main():
-    input_csv = '../data/ModCorr.csv'
+    input_csv = '../data/Publisher_works.csv'
     processed_csv = '../data/processed.csv'
     query_file = '../queries/publisher.sparql'
     output_file = '../output/publisher.ttl'

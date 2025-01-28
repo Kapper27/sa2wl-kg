@@ -9,22 +9,30 @@
 
 urb:publication1  rdf:type   urb:Publication ;
         prov:wasDerivedFrom  urb:goodreads ;
-        urb:hasParticipant   urw:2018 , urb:Jade-City , urb:Orbit .
+        urb:hasParticipant   urw:2018 , urb:jade-city , urb:orbit .
 
-urb:Feltrinelli  rdf:type  urb:Publisher ;
-        urb:published  urb:Il-Profeta .
+urb:ruination--a-league-of-legends-novel
+        rdf:type    urb:Edition ;
+        rdfs:label  "Ruination: A League of Legends Novel" .
 
-urb:Jade-City  rdf:type  urb:Edition ;
+urb:jade-city  rdf:type  urb:Edition ;
         rdfs:label  "Jade City" .
+
+urb:feltrinelli  rdf:type  urb:Publisher ;
+        urb:published  urb:il-profeta .
+
+urb:orbit  rdf:type    urb:Publisher ;
+        urb:published  urb:ruination--a-league-of-legends-novel , urb:jade-city .
 
 urb:publication2  rdf:type   urb:Publication ;
         prov:wasDerivedFrom  urb:goodreads ;
-        urb:hasParticipant   urw:1991 , urb:Il-Profeta , urb:Feltrinelli .
+        urb:hasParticipant   urw:1991 , urb:il-profeta , urb:feltrinelli .
 
-urb:goodreads  schema:url  "https://www.goodreads.com/book/show/8013567-il-profeta" , "https://www.goodreads.com/book/show/43587154-jade-city?ref=rae_2" .
+urb:goodreads  schema:url  "https://www.goodreads.com/book/show/60382749-ruination" , "https://www.goodreads.com/book/show/8013567-il-profeta" , "https://www.goodreads.com/book/show/43587154-jade-city" .
 
-urb:Orbit  rdf:type    urb:Publisher ;
-        urb:published  urb:Jade-City .
-
-urb:Il-Profeta  rdf:type  urb:Edition ;
+urb:il-profeta  rdf:type  urb:Edition ;
         rdfs:label  "Il Profeta" .
+
+urb:publication3  rdf:type   urb:Publication ;
+        prov:wasDerivedFrom  urb:goodreads ;
+        urb:hasParticipant   urw:2022 , urb:ruination--a-league-of-legends-novel , urb:orbit .
